@@ -1,6 +1,6 @@
 // Copyright 2026 Anna Veretennykova
 //
-// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: MIT
 
 package engine
 
@@ -17,16 +17,16 @@ const (
 	StageRender     EngineStage = "render"
 )
 
-type AnnaveError struct {
+type Error struct {
 	Code    string      `json:"code"`
 	Stage   EngineStage `json:"stage"`
 	Message string      `json:"message"`
 }
 
-func (e *AnnaveError) Error() string {
+func (e *Error) Error() string {
 	return fmt.Sprintf("[%s/%s] %s", e.Stage, e.Code, e.Message)
 }
 
-func NewError(code string, stage EngineStage, message string) *AnnaveError {
-	return &AnnaveError{Code: code, Stage: stage, Message: message}
+func NewError(code string, stage EngineStage, message string) *Error {
+	return &Error{Code: code, Stage: stage, Message: message}
 }

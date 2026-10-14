@@ -1,10 +1,10 @@
 <!--
-title:       ANNÁVE PDF Engine: Architecture
+title:       PDF Engine: Architecture
 description: Six-stage pipeline overview, the public API and per-Engine
              configuration, package structure, and instructions for adding a new parser.
 author:      Anna Veretennykova
 website:     www.annave.tech
-version:     1.3.1
+version:     1.4.0
 created:     2026-05-06
 updated:     2026-08-23
 -->
@@ -13,7 +13,7 @@ updated:     2026-08-23
 
 ## Design pattern
 
-The engine is a public Go package (`pdfengine`, at the module root) wrapping a six-stage conversion pipeline (`internal/engine`). The pipeline itself has no knowledge of where its input came from or how its output is delivered: it takes a document and a format, and returns PDF bytes or an error. Two consumers drive it today: the `pdfengine` package (for library callers) and `cmd/cli` (for the `annave` command). Both call straight into `internal/engine`; there is no separate ports-and-adapters interface layer between them and the pipeline, and no runtime-pluggable delivery mechanism: adding a new one (a future MCP server, for example) means writing a new package that imports `internal/engine` or `pdfengine` directly, the same way `cmd/cli` does.
+The engine is a public Go package (`pdfengine`, at the module root) wrapping a six-stage conversion pipeline (`internal/engine`). The pipeline itself has no knowledge of where its input came from or how its output is delivered: it takes a document and a format, and returns PDF bytes or an error. Two consumers drive it today: the `pdfengine` package (for library callers) and `cmd/pdfengine` (for the `pdfengine` command). Both call straight into `internal/engine`; there is no separate ports-and-adapters interface layer between them and the pipeline, and no runtime-pluggable delivery mechanism: adding a new one (a future MCP server, for example) means writing a new package that imports `internal/engine` or `pdfengine` directly, the same way `cmd/pdfengine` does.
 
 Configuration (style, limits, messages) is resolved once, when a `pdfengine.Engine` or `internal/engine.Pipeline` is constructed, into an immutable `internal/engine.Config`; see `docs/CONFIGURATION.md`. Two `Engine` values can hold two different `Config`s in the same process.
 
@@ -21,7 +21,7 @@ Configuration (style, limits, messages) is resolved once, when a `pdfengine.Engi
 ┌──────────────────────────────────────────────────────┐
 │ Consumers                                            │
 │ pdfengine (module root) : public library entry point │
-│ cmd/cli/                : cobra CLI                  │
+│ cmd/pdfengine/          : cobra CLI                  │
 └──────────────────────────────────────────────────────┘
                       │  pdfengine.New(opts...) (*Engine, error)
                       │  (*Engine).Convert(ctx, data, format) ([]byte, error)
@@ -217,7 +217,7 @@ FormatYour,
 FormatYour: &YourParser{},
 ```
 
-3. **Add a test in `internal/parser/yourformat_test.go`** using a real fixture from the ANNÁVE PDF Engine documentation as input.
+3. **Add a test in `internal/parser/yourformat_test.go`** using a real fixture from the PDF Engine documentation as input.
 
 4. **Update `config/messages.yaml`** to include the new format in the `ENGINE_ERR_UNSUPPORTED_FORMAT` message list.
 
@@ -227,10 +227,10 @@ Nothing else changes. The pipeline and renderer are format-agnostic.
 
 ## Error types (`internal/engine/errors.go`)
 
-All pipeline errors are `*AnnaveError`:
+All pipeline errors are `*Error`:
 
 ```go
-type AnnaveError struct {
+type Error struct {
     Code    string
     Stage   EngineStage
     Message string

@@ -1,12 +1,12 @@
 // Copyright 2026 Anna Veretennykova
 //
-// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: MIT
 
 package engine
 
 import "strings"
 
-const EngineVersion = "1.3.1"
+const EngineVersion = "1.4.0"
 const SchemaVersion = "1"
 
 func IsSchemaCompatible(version string) bool {

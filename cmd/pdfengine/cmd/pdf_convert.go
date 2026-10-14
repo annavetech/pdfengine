@@ -1,6 +1,6 @@
 // Copyright 2026 Anna Veretennykova
 //
-// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: MIT
 
 package cmd
 
@@ -36,10 +36,10 @@ Reads from a file argument, or from stdin with --stdin.
 Writes to the path given by --output, or to stdout if --output is omitted.
 
 Examples:
-  annave pdf convert README.md -o output.pdf
-  annave pdf convert report.docx -o report.pdf
-  cat data.csv | annave pdf convert --stdin --format csv > table.pdf
-  annave pdf convert --stdin --format md < spec.md > spec.pdf`,
+  pdfengine pdf convert README.md -o output.pdf
+  pdfengine pdf convert report.docx -o report.pdf
+  cat data.csv | pdfengine pdf convert --stdin --format csv > table.pdf
+  pdfengine pdf convert --stdin --format md < spec.md > spec.pdf`,
 	Args: func(cmd *cobra.Command, args []string) error {
 		if convertStdin && len(args) > 0 {
 			return fmt.Errorf("cannot use --stdin together with a file argument")
@@ -105,14 +105,14 @@ Examples:
 		pipe := engine.NewPipeline(cfg)
 		pdfBytes, err := pipe.Run(string(input), format)
 		if err != nil {
-			if ae, ok := err.(*engine.AnnaveError); ok {
+			if ae, ok := err.(*engine.Error); ok {
 				return fmt.Errorf("%s: %s", ae.Code, ae.Message)
 			}
 			return err
 		}
 
 		if convertOutput == "" {
-			// Write PDF to stdout. Useful for piping: annave pdf convert ... > out.pdf
+			// Write PDF to stdout. Useful for piping: pdfengine pdf convert ... > out.pdf
 			_, err = os.Stdout.Write(pdfBytes)
 			return err
 		}

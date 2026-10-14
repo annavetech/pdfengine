@@ -1,6 +1,6 @@
 // Copyright 2026 Anna Veretennykova
 //
-// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: MIT
 
 // Package config embeds the YAML configuration files that ship with the binary.
 // No external files are required at runtime.

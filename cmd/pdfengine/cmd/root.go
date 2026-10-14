@@ -1,6 +1,6 @@
 // Copyright 2026 Anna Veretennykova
 //
-// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: MIT
 
 package cmd
 
@@ -14,16 +14,16 @@ import (
 )
 
 var rootCmd = &cobra.Command{
-	Use:   "annave",
-	Short: "ANNÁVE TECH developer tools",
-	Long:  "ANNÁVE TECH: developer tools by Anna Veretennykova (www.annave.tech)",
+	Use:   "pdfengine",
+	Short: "Convert documents to PDF",
+	Long:  "PDF Engine: convert documents to PDF from the command line.",
 }
 
 var versionCmd = &cobra.Command{
 	Use:   "version",
 	Short: "Print the version",
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Printf("ANNÁVE PDF Engine v%s\n", engine.EngineVersion)
+		fmt.Printf("PDF Engine v%s\n", engine.EngineVersion)
 	},
 }
 

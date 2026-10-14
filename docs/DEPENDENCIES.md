@@ -1,10 +1,10 @@
 <!--
-title:       ANNÁVE PDF Engine: Dependencies
+title:       PDF Engine: Dependencies
 description: Every direct and indirect dependency, exact pinned version,
              what each does, and what breaks if you change the version.
 author:      Anna Veretennykova
 website:     www.annave.tech
-version:     1.3.1
+version:     1.4.0
 created:     2026-05-06
 updated:     2026-08-23
 -->
@@ -78,7 +78,7 @@ HTML parsing, used by `bluemonday` (indirect requirement). Also provides the `ht
 
 ### `github.com/spf13/cobra v1.10.2`
 
-Used directly by `cmd/cli` for the CLI command tree (`pdf`, `pdf convert`). The core engine (`internal/engine`) does not depend on cobra.
+Used directly by `cmd/pdfengine` for the CLI command tree (`pdf`, `pdf convert`). The core engine (`internal/engine`) does not depend on cobra.
 
 | Version range | Result |
 |---|---|

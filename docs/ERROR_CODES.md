@@ -1,10 +1,10 @@
 <!--
-title:       ANNÁVE PDF Engine: Error Codes Reference
+title:       PDF Engine: Error Codes Reference
 description: Full reference for all ENGINE_ERR_* codes: pipeline stage,
              when each code is triggered, and how to handle it in client code.
 author:      Anna Veretennykova
 website:     www.annave.tech
-version:     1.3.1
+version:     1.4.0
 created:     2026-05-06
 updated:     2026-08-23
 -->

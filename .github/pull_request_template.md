@@ -27,5 +27,5 @@ Closes #
 
 - [ ] This change does not introduce a way for external content (untrusted documents, issue/PR text) to be treated as instructions by an agent.
 
-The contribution is licensed under the Apache License 2.0 of this repository
+The contribution is licensed under the MIT License of this repository
 (see [LICENSE](../LICENSE)), and [docs/CONTRIBUTING.md](../docs/CONTRIBUTING.md) has been read.

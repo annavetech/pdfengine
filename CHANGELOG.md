@@ -1,11 +1,21 @@
 # Changelog
 
-All notable changes to ANNÁVE PDF Engine are documented here.
+All notable changes to PDF Engine are documented here.
 Versioning follows [Semantic Versioning](https://semver.org/).
 
 ---
 
 ## [Unreleased]
+
+---
+
+## [1.4.0] - 2026-10-14
+
+### Changed
+- License changed from Apache 2.0 to MIT.
+- **Breaking (CLI):** the CLI command is renamed from `annave` to `pdfengine`, and its source moves from `cmd/cli` to `cmd/pdfengine`. Install it with `go install github.com/annavetech/pdfengine/cmd/pdfengine@latest`.
+- Homebrew install moved to `brew install annavetech/tap/pdfengine`.
+- The internal `AnnaveError` type in `internal/engine` is renamed to `Error`. The public `pdfengine.Error` type is unchanged.
 
 ---
 

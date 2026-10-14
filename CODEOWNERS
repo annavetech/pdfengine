@@ -13,7 +13,7 @@
 /internal/ast/ @annaveretennykova
 /schema/ @annaveretennykova
 
-# The annave CLI and the debug tool.
+# The pdfengine CLI and the debug tool.
 /cmd/ @annaveretennykova
 
 # Style, limits, and message config.
