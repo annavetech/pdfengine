@@ -1,4 +1,4 @@
-# ANNÁVE PDF Engine
+# PDF Engine
 
 A Go library and CLI that convert documents to PDF.
 Supports Markdown, HTML, DOCX, CSV, JSON, YAML, XML, RST, Jupyter Notebooks, and images.
@@ -40,8 +40,8 @@ document:
 ## Quick start
 
 ```bash
-go build ./cmd/cli
-annave pdf convert README.md -o output.pdf
+go build ./cmd/pdfengine
+pdfengine pdf convert README.md -o output.pdf
 ```
 
 > All configuration is embedded at build time. No external files are read at runtime.

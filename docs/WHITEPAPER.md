@@ -1,10 +1,10 @@
 <!--
-title:       ANNÁVE PDF Engine: Technical White Paper
+title:       PDF Engine: Technical White Paper
 description: The problem, the design decisions, the tradeoffs, and the
-             performance characteristics of the ANNÁVE PDF Engine v1.0.
+             performance characteristics of the PDF Engine v1.0.
 author:      Anna Veretennykova
 website:     www.annave.tech
-version:     1.3.1
+version:     1.4.0
 created:     2026-05-06
 updated:     2026-08-23
 -->
@@ -39,7 +39,7 @@ Neither category is well-suited to the use case of "accept a document in any com
 
 ## Architecture summary
 
-The engine is a six-stage pipeline (`internal/engine`), driven directly by two consumers: the public `pdfengine` package and the `annave` CLI. See `docs/ARCHITECTURE.md` for the full package map.
+The engine is a six-stage pipeline (`internal/engine`), driven directly by two consumers: the public `pdfengine` package and the `pdfengine` CLI. See `docs/ARCHITECTURE.md` for the full package map.
 
 ```
 Normalise → Parse → Validate → Layout → Paginate → Render

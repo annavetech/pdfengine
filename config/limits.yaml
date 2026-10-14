@@ -1,14 +1,14 @@
-# ANNÁVE PDF Engine: Input and Output Limits
+# PDF Engine: Input and Output Limits
 #
 # Adjust these values to match your deployment constraints.
 #
 # This file is the embedded default: edit it and rebuild the binary
-# (go build ./cmd/cli) to change it for every Engine that does not override
+# (go build ./cmd/pdfengine) to change it for every Engine that does not override
 # it.
 #
 # To change the limits without rebuilding, a caller passes its own YAML file
 # in this exact shape to pdfengine.New via WithLimitsFile(path) (library) or
-# annave pdf convert --limits-file path (CLI). No external file is read
+# pdfengine pdf convert --limits-file path (CLI). No external file is read
 # unless the caller supplies one this way.
 
 input:

@@ -1,6 +1,6 @@
 // Copyright 2026 Anna Veretennykova
 //
-// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: MIT
 
 package engine
 
@@ -70,9 +70,9 @@ func TestPipeline_Run_RejectsOversizedInput(t *testing.T) {
 	if err == nil {
 		t.Fatal("expected error for oversized input, got nil")
 	}
-	ae, ok := err.(*AnnaveError)
+	ae, ok := err.(*Error)
 	if !ok {
-		t.Fatalf("expected *AnnaveError, got %T: %v", err, err)
+		t.Fatalf("expected *Error, got %T: %v", err, err)
 	}
 	if ae.Stage != StageInput {
 		t.Errorf("expected stage %q, got %q", StageInput, ae.Stage)
@@ -87,9 +87,9 @@ func TestPipeline_Run_RejectsUnsupportedFormat(t *testing.T) {
 	if err == nil {
 		t.Fatal("expected error for an unrecognised format, got nil")
 	}
-	ae, ok := err.(*AnnaveError)
+	ae, ok := err.(*Error)
 	if !ok {
-		t.Fatalf("expected *AnnaveError, got %T: %v", err, err)
+		t.Fatalf("expected *Error, got %T: %v", err, err)
 	}
 	if ae.Code != "ENGINE_ERR_UNSUPPORTED_FORMAT" {
 		t.Errorf("expected code %q, got %q", "ENGINE_ERR_UNSUPPORTED_FORMAT", ae.Code)
@@ -213,9 +213,9 @@ func TestPipeline_Run_ParserLimitErrors(t *testing.T) {
 				cfg.Limits.Input.MaxInputChars = tc.maxInputChars
 			}
 			_, err := NewPipeline(cfg).Run(tc.input, tc.format)
-			var ae *AnnaveError
+			var ae *Error
 			if !errors.As(err, &ae) {
-				t.Fatalf("Run() error = %v, want *AnnaveError", err)
+				t.Fatalf("Run() error = %v, want *Error", err)
 			}
 			if ae.Code != "ENGINE_ERR_PARSE_FAILED" {
 				t.Errorf("Code = %q, want %q", ae.Code, "ENGINE_ERR_PARSE_FAILED")
@@ -426,9 +426,9 @@ func TestPipeline_Run_AutoBracketTextIsNotJSON(t *testing.T) {
 // TestPipeline_Run_ExplicitJSONInvalidFails checks that explicit json with invalid input still fails.
 func TestPipeline_Run_ExplicitJSONInvalidFails(t *testing.T) {
 	_, err := NewPipeline(mustDefaultConfig(t)).Run("{draft} notes", parser.FormatJSON)
-	var ae *AnnaveError
+	var ae *Error
 	if !errors.As(err, &ae) {
-		t.Fatalf("Run() error = %v, want *AnnaveError", err)
+		t.Fatalf("Run() error = %v, want *Error", err)
 	}
 	if ae.Code != "ENGINE_ERR_PARSE_FAILED" {
 		t.Errorf("Code = %q, want %q", ae.Code, "ENGINE_ERR_PARSE_FAILED")
@@ -439,9 +439,9 @@ func TestPipeline_Run_ExplicitJSONInvalidFails(t *testing.T) {
 func TestPipeline_Run_UndecodableNotebookFails(t *testing.T) {
 	for _, f := range []parser.InputFormat{parser.FormatAuto, parser.FormatIPYNB} {
 		_, err := NewPipeline(mustDefaultConfig(t)).Run(`{"cells": [1, 2], "nbformat": 4}`, f)
-		var ae *AnnaveError
+		var ae *Error
 		if !errors.As(err, &ae) {
-			t.Fatalf("Run(%q) error = %v, want *AnnaveError", f, err)
+			t.Fatalf("Run(%q) error = %v, want *Error", f, err)
 		}
 		if ae.Code != "ENGINE_ERR_PARSE_FAILED" {
 			t.Errorf("Run(%q) Code = %q, want %q", f, ae.Code, "ENGINE_ERR_PARSE_FAILED")

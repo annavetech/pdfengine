@@ -1,10 +1,10 @@
 <!--
-title:       ANNÁVE PDF Engine: Use Cases
+title:       PDF Engine: Use Cases
 description: Seven practical use cases with real library and CLI examples.
              No marketing language, just what works and what to watch for.
 author:      Anna Veretennykova
 website:     www.annave.tech
-version:     1.3.1
+version:     1.4.0
 created:     2026-05-06
 updated:     2026-08-23
 -->
@@ -20,7 +20,7 @@ Seven practical scenarios with working examples and notes on edge cases.
 **Scenario:** A CLI tool or CI pipeline converts a Markdown README or technical specification to a PDF for distribution.
 
 ```bash
-annave pdf convert README.md -o output.pdf
+pdfengine pdf convert README.md -o output.pdf
 ```
 
 Or as a library call, with the format given explicitly:
@@ -42,7 +42,7 @@ pdf, err := e.Convert(context.Background(), []byte(markdown), pdfengine.FormatMa
 **Scenario:** Export a spreadsheet or database query result as a formatted PDF table.
 
 ```bash
-annave pdf convert report.csv -o report.pdf
+pdfengine pdf convert report.csv -o report.pdf
 ```
 
 Example input (`report.csv`):
@@ -65,7 +65,7 @@ PDF Engine,Service,Running
 **Scenario:** Convert a Word document to PDF as part of a document-processing pipeline.
 
 ```bash
-annave pdf convert document.docx -o document.pdf
+pdfengine pdf convert document.docx -o document.pdf
 ```
 
 **What to watch:**
@@ -81,7 +81,7 @@ annave pdf convert document.docx -o document.pdf
 **Scenario:** Convert a `.ipynb` notebook for sharing or archiving.
 
 ```bash
-annave pdf convert analysis.ipynb -o analysis.pdf
+pdfengine pdf convert analysis.ipynb -o analysis.pdf
 ```
 
 **What to watch:**
@@ -97,7 +97,7 @@ annave pdf convert analysis.ipynb -o analysis.pdf
 **Scenario:** A server-side template renders an HTML report, which is then converted to PDF.
 
 ```bash
-annave pdf convert report.html -o report.pdf
+pdfengine pdf convert report.html -o report.pdf
 ```
 
 Or, from a Go service that already has the HTML in memory:
@@ -119,7 +119,7 @@ pdf, err := e.Convert(context.Background(), []byte(html), pdfengine.FormatHTML)
 **Scenario:** Convert a 50-page technical specification or legal document.
 
 ```bash
-annave pdf convert spec.md -o spec.pdf
+pdfengine pdf convert spec.md -o spec.pdf
 ```
 
 If the document exceeds the default limits, `Convert` returns an error:
@@ -144,7 +144,7 @@ Then rebuild.
 **Scenario:** Wrap a PNG or JPEG in a PDF page, for archiving or consistent delivery format.
 
 ```bash
-annave pdf convert diagram.png -o diagram.pdf
+pdfengine pdf convert diagram.png -o diagram.pdf
 ```
 
 **What to watch:**

@@ -1,10 +1,10 @@
 <!--
-title:       ANNÁVE PDF Engine: Contributing Guide
+title:       PDF Engine: Contributing Guide
 description: How to add a parser, run tests, submit a pull request,
              and what code style is expected.
 author:      Anna Veretennykova
 website:     www.annave.tech
-version:     1.3.1
+version:     1.4.0
 created:     2026-05-06
 updated:     2026-08-23
 -->
@@ -18,13 +18,13 @@ git clone https://github.com/annavetech/pdfengine.git
 cd pdfengine
 
 # Build
-go build ./cmd/cli
+go build ./cmd/pdfengine
 
 # Run tests
 go test ./...
 
 # Convert a document locally
-go run ./cmd/cli pdf convert README.md -o output.pdf
+go run ./cmd/pdfengine pdf convert README.md -o output.pdf
 ```
 
 Go 1.26.8 or later is required.
@@ -41,7 +41,7 @@ go test ./...
 go test -v ./internal/engine/...
 
 # Single test function
-go test -v -run TestPipeline_Run_Markdown ./internal/engine/...
+go test -v -run TestPipeline_Run_GoldenMarkdown ./internal/engine/...
 
 # Fuzz the Markdown parser for 30 seconds
 go test -fuzz=FuzzMdParser -fuzztime=30s ./internal/parser/...
@@ -78,7 +78,7 @@ of a normal `go test ./...`.
   ```go
   // Copyright 2026 Anna Veretennykova
   //
-  // SPDX-License-Identifier: Apache-2.0
+  // SPDX-License-Identifier: MIT
   ```
 - Comments only when the reason is non-obvious: not what the code does, but why it does it that way.
 - No `_test.go` file uses mocks for the database or filesystem. The pipeline tests call `Pipeline.Run` directly. No fakes for the PDF renderer: tests assert on the error return, not the PDF content.
@@ -94,7 +94,7 @@ See `docs/ARCHITECTURE.md` for the full walkthrough. Short version:
 1. Create `internal/parser/yourformat.go` with a struct implementing `parser.Parser` (two methods: `CanParse`, `Parse`).
 2. Add the format constant and extension mappings to `internal/parser/registry.go`.
 3. Register the parser: add the format to the `ordered` slice in `NewRegistry(maxInputChars)`, binary formats (magic-byte checks) before text formats, and add the parser to `byFormat` in `newByFormat()`.
-4. Write a test in `internal/parser/yourformat_test.go`. The test fixture should be a real document from the ANNÁVE PDF Engine documentation, not lorem ipsum. This doubles as self-documenting content that people will not delete.
+4. Write a test in `internal/parser/yourformat_test.go`. The test fixture should be a real document from the PDF Engine documentation, not lorem ipsum. This doubles as self-documenting content that people will not delete.
 5. Update the `ENGINE_ERR_UNSUPPORTED_FORMAT` message in `config/messages.yaml` to include the new format name.
 
 The pipeline and renderer require no changes.
@@ -127,7 +127,7 @@ The six stages are fixed at the architectural level. Adding a seventh stage requ
 The engine follows [Semantic Versioning](https://semver.org). The version is set in `internal/engine/config.go`:
 
 ```go
-const EngineVersion = "1.3.1"
+const EngineVersion = "1.4.0"
 ```
 
 - Patch (1.0.x): bug fixes, no API or config key changes

@@ -1,4 +1,4 @@
-# ANNÁVE PDF Engine: Document Style Configuration
+# PDF Engine: Document Style Configuration
 #
 # All sizes are in CSS pixels at 96 DPI.
 # 1 px at 96 DPI = 0.2646 mm = 0.75 pt
@@ -10,7 +10,7 @@
 #
 # To change the style without rebuilding, a caller passes its own YAML file
 # in this exact shape to pdfengine.New via WithStyleFile(path) (library) or
-# annave pdf convert --style-file path (CLI). No external file is read
+# pdfengine pdf convert --style-file path (CLI). No external file is read
 # unless the caller supplies one this way.
 
 page:

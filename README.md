@@ -1,9 +1,9 @@
-# ANNÁVE PDF Engine
+# PDF Engine
 
 Convert any document format to PDF from Go code or the command line. No headless browser. No C dependencies. Self-hosted.
 
 * **Author:** Anna Veretennykova · [www.annave.tech](https://www.annave.tech)
-* **License:** Apache 2.0
+* **License:** MIT
 
 ---
 
@@ -18,25 +18,24 @@ Every available option has a cost that isn't obvious until production:
 | PDFco / HTML2PDF / similar | Per-call pricing, your documents leave your infrastructure |
 | ReportLab (Python) | Python runtime required, not embeddable in Go services |
 
-ANNÁVE PDF Engine is a single Go binary (~10 MB with embedded fonts). It takes raw text or structured JSON as input and returns PDF bytes. No runtime dependencies. No external calls. Deploy it once and it runs indefinitely.
+PDF Engine is a single Go binary (~10 MB with embedded fonts). It takes raw text or structured JSON as input and returns PDF bytes. No runtime dependencies. No external calls. Deploy it once and it runs indefinitely.
 
 ---
 
 ## Installation
 
-The `annave` CLI converts documents to PDF without running a server.
+The `pdfengine` CLI converts documents to PDF without running a server.
 
 ```bash
 # Go
-go install github.com/annavetech/pdfengine/cmd/cli@latest
+go install github.com/annavetech/pdfengine/cmd/pdfengine@latest
 
 # Homebrew (macOS, Linux)
-brew tap annavetech/annave
-brew install annave-pdf-engine
+brew install annavetech/tap/pdfengine
 ```
 
 ```bash
-annave pdf convert report.md -o report.pdf
+pdfengine pdf convert report.md -o report.pdf
 ```
 
 ---
@@ -126,13 +125,13 @@ Full schema: [`schema/document.v1.schema.json`](schema/document.v1.schema.json)
 
 All three are embedded in the binary at build time; editing one and running `go build` changes the default for every `Engine` that does not override it.
 
-`style.yaml` and `limits.yaml` can also be replaced per `Engine`, at runtime, without a rebuild: `pdfengine.New(pdfengine.WithStyleFile(path), pdfengine.WithLimitsFile(path))`, or `annave pdf convert --style-file path --limits-file path` from the CLI. The library never reads a file unless one of these options names it explicitly; see [`docs/CONFIGURATION.md`](docs/CONFIGURATION.md).
+`style.yaml` and `limits.yaml` can also be replaced per `Engine`, at runtime, without a rebuild: `pdfengine.New(pdfengine.WithStyleFile(path), pdfengine.WithLimitsFile(path))`, or `pdfengine pdf convert --style-file path --limits-file path` from the CLI. The library never reads a file unless one of these options names it explicitly; see [`docs/CONFIGURATION.md`](docs/CONFIGURATION.md).
 
 ---
 
 ## Architecture
 
-The public `pdfengine` package and the `annave` CLI both call straight into a six-stage internal pipeline (`internal/engine`). The pipeline has no knowledge of where its input came from or how its output is delivered.
+The public `pdfengine` package and the `pdfengine` CLI both call straight into a six-stage internal pipeline (`internal/engine`). The pipeline has no knowledge of where its input came from or how its output is delivered.
 
 ```
 pdfengine.New(opts...) (*Engine, error)
@@ -187,14 +186,14 @@ go test -fuzz=FuzzMdParser -fuzztime=30s ./internal/parser/...
 ## Building a release binary
 
 ```bash
-go build -o annave ./cmd/cli
+go build -o pdfengine ./cmd/pdfengine
 ```
 
 The binary embeds all fonts and configuration. No external files are needed at runtime.
 
 For cross-compilation (e.g. Linux on macOS):
 ```bash
-GOOS=linux GOARCH=amd64 go build -o annave-linux ./cmd/cli
+GOOS=linux GOARCH=amd64 go build -o pdfengine-linux ./cmd/pdfengine
 ```
 
 ---

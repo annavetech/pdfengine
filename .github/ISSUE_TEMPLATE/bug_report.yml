@@ -29,7 +29,7 @@ body:
       options:
         - "parser (a specific input format)"
         - "engine (layout, rendering, the AST pipeline)"
-        - "cli (the annave command)"
+        - "cli (the pdfengine command)"
         - "config (style, limits, or message YAML)"
         - "docs"
         - "plugin"
@@ -40,7 +40,7 @@ body:
     id: environment
     attributes:
       label: Environment
-      description: OS, Go version, and pdfengine version (see `annave version` or CHANGELOG.md).
+      description: OS, Go version, and pdfengine version (see `pdfengine version` or CHANGELOG.md).
     validations:
       required: false
   - type: textarea

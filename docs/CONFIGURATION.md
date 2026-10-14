@@ -1,10 +1,10 @@
 <!--
-title:       ANNÁVE PDF Engine: Configuration Reference
+title:       PDF Engine: Configuration Reference
 description: Every configuration key across limits.yaml, style.yaml,
              and messages.yaml, with valid values, defaults, and what breaks at extremes.
 author:      Anna Veretennykova
 website:     www.annave.tech
-version:     1.3.1
+version:     1.4.0
 created:     2026-05-06
 updated:     2026-08-23
 -->
@@ -13,9 +13,9 @@ updated:     2026-08-23
 
 The engine uses three YAML files in `config/`. All three are embedded into the binary at build time via `//go:embed`, and every `Engine` uses those embedded values by default.
 
-**To change the embedded default:** edit the YAML file, then rebuild with `go build ./cmd/cli`.
+**To change the embedded default:** edit the YAML file, then rebuild with `go build ./cmd/pdfengine`.
 
-**To change `style.yaml` or `limits.yaml` without rebuilding:** pass your own file to `pdfengine.New` (`pdfengine.New(pdfengine.WithStyleFile(path))`, `pdfengine.New(pdfengine.WithLimitsFile(path))`, or both together), or, from the CLI, `annave pdf convert --style-file path` / `--limits-file path`. The library itself never reads a file unless one of these options names it explicitly: there is no implicit directory convention, no environment-variable lookup, and no filesystem scan inside the library. A caller that wants a discovery convention of its own (an environment variable, a fixed path, a flag) resolves that path itself and passes the result to one of these options. `config/messages.yaml` has no such override; every `Engine` uses the embedded messages.
+**To change `style.yaml` or `limits.yaml` without rebuilding:** pass your own file to `pdfengine.New` (`pdfengine.New(pdfengine.WithStyleFile(path))`, `pdfengine.New(pdfengine.WithLimitsFile(path))`, or both together), or, from the CLI, `pdfengine pdf convert --style-file path` / `--limits-file path`. The library itself never reads a file unless one of these options names it explicitly: there is no implicit directory convention, no environment-variable lookup, and no filesystem scan inside the library. A caller that wants a discovery convention of its own (an environment variable, a fixed path, a flag) resolves that path itself and passes the result to one of these options. `config/messages.yaml` has no such override; every `Engine` uses the embedded messages.
 
 Two `Engine` values built with different `WithStyleFile`/`WithLimitsFile` options hold genuinely independent configuration in the same process; nothing here is a single process-wide setting.
 

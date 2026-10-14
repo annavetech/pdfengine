@@ -1,6 +1,6 @@
 // Copyright 2026 Anna Veretennykova
 //
-// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: MIT
 
 package pdfengine
 
@@ -39,12 +39,12 @@ func (e *Error) Error() string {
 	return fmt.Sprintf("[%s/%s] %s", e.Stage, e.Code, e.Message)
 }
 
-// translateError copies the fields of an internal *engine.AnnaveError into
+// translateError copies the fields of an internal *engine.Error into
 // a public *Error. It never returns the internal error itself, so a caller
 // doing errors.As on an internal type can never succeed against a value
 // this package returns.
 func translateError(err error) error {
-	var ae *engine.AnnaveError
+	var ae *engine.Error
 	if errors.As(err, &ae) {
 		return &Error{Code: ae.Code, Stage: toStage(ae.Stage), Message: ae.Message}
 	}
