@@ -1,6 +1,6 @@
 module github.com/annavetech/pdfengine
 
-go 1.26.8
+go 1.26.10
 
 require (
 	github.com/microcosm-cc/bluemonday v1.0.27
