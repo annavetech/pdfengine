@@ -27,7 +27,7 @@ go test ./...
 go run ./cmd/pdfengine pdf convert README.md -o output.pdf
 ```
 
-Go 1.26.8 or later is required.
+Go 1.26.10 or later is required.
 
 ---
 
