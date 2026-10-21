@@ -7,6 +7,12 @@ Versioning follows [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+- `github.com/signintech/gopdf` is bumped to v0.38.2, which now emits `/CIDToGIDMap /Identity` in each embedded TrueType font dictionary; `internal/engine/testdata/golden.pdf` is regenerated to match. `golang.org/x/image` is bumped to v0.47.0 and `golang.org/x/net` to v0.61.0.
+
+### Security
+- The Go floor is 1.26.10, which fixes GO-2026-6809 in crypto/x509. Release 1.4.0 declared Go 1.26.8 in `go.mod`.
+
 ---
 
 ## [1.4.0] - 2026-10-14
