@@ -4,7 +4,7 @@ go 1.26.10
 
 require (
 	github.com/microcosm-cc/bluemonday v1.0.27
-	github.com/signintech/gopdf v0.38.3
+	github.com/signintech/gopdf v0.38.4
 	github.com/spf13/cobra v1.10.2
 	golang.org/x/image v0.47.0
 	golang.org/x/net v0.62.0
